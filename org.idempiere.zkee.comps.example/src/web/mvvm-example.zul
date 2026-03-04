@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk>
+	<vlayout>
+		Server MVVM Example
+		<div apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('vm') @init(arg.exampleVm)"
+			style="height: 100%; width: 100%; overflow: auto; padding: 12px;">
+			<vlayout spacing="8px">
+				<datebox width="120px" value="@bind(vm.selectedTime)" />
+				<label value="@load(vm.selectedTime)" />
+				<button label="Show Notification" onClick="@command('showNotification')" />
+			</vlayout>
+		</div>
+		Client MVVM Example
+		<div apply="org.zkoss.clientbind.ClientBindComposer"
+			viewModel="@id('vm') @init(arg.exampleVm)"
+			style="height: 100%; width: 100%; overflow: auto; padding: 12px;">
+			<vlayout spacing="8px">
+				<datebox width="120px" value="@bind(vm.selectedTime)" />
+				<label value="@load(vm.selectedTime)" />
+				<button label="Show Notification" onClick="@command('showNotification')" />
+			</vlayout>
+		</div>
+		Shadow
+		<div>
+			<if test="true">
+				shadow if
+			</if>
+		</div>
+	</vlayout>
+</zk>

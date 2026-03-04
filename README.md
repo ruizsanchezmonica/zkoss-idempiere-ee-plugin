@@ -15,6 +15,12 @@ With this project you can:
 - Build a ZK plugin with ZK EE components and install it into iDempiere
 - Follow the example project to create your own plugin with ZK EE components
 
+## 12.0.1 Highlights
+
+- Added runtime modules to the fragment: `client-bind`, `zuti`, and `za11y`.
+- Enabled Client MVVM setup through fragment-level ZK configuration (`BinderPropertiesRenderer`).
+- Updated bundle/version line to `12.0.1` for iDempiere 12-aligned releases.
+
 Building iDempiere plugins requires having the iDempiere core libraries available as a local p2 repository. This guide will walk you through the process of setting up the necessary dependencies and building the plugin.
 
 ## Prerequisites
@@ -93,16 +99,17 @@ mvn clean -U -DskipTests -am verify
    This runs the dependency-copy step and produces `org.idempiere.zkee.comps.fragment/target/org.idempiere.zkee.comps.fragment-<version>.jar`.
 2) Install the fragment into your OSGi runtime (for example via Felix Web Console, or by placing the jar in the plugins directory) and restart the server so the host bundle (`org.adempiere.ui.zk`) resolves with the fragment on its classpath.
 3) Confirm the fragment is active; the ZK PE/EE widgets (defined in the embedded `zkex`/`zkmax` lang-addons) should render without “widget class required” errors.
+4) If you use Client MVVM (`org.zkoss.clientbind.ClientBindComposer`), the fragment also ships `client-bind`, `zuti`, and `za11y` modules so those runtime classes/resources are available to the host bundle classloader.
 
 #### What is in `org.idempiere.zkee.comps.fragment`?
 
-- Purpose: OSGi fragment that attaches both ZK PE and EE jars to `org.adempiere.ui.zk`, exposing lang-addons, widgets, and resources from zkex/zkmax plus `gson` for supporting components.
+- Purpose: OSGi fragment that attaches ZK PE/EE and supporting jars to `org.adempiere.ui.zk`, exposing lang-addons, widgets, and resources required by `zkex`, `zkmax`, `client-bind`, `zuti`, and `za11y`.
 - Key files:
-  - `META-INF/MANIFEST.MF`: `Fragment-Host: org.adempiere.ui.zk`, `Bundle-ClassPath: ., lib/zkex.jar, lib/zkmax.jar, lib/gson.jar`.
-  - `build.properties`: includes `META-INF/`, `lib/zkex.jar`, `lib/zkmax.jar`, `lib/gson.jar` so they are packaged inside the fragment.
-  - `pom.xml`: eclipse-plugin packaging; EE eval repository; dependency-copy execution to fetch `zkex`, `zkmax`, and `gson` into `lib/` (version-stripped).
-  - `src/metainfo/zk.xml`: sets EE-specific library property (`org.zkoss.zkmax.au.IWBS.disable=true`).
-  - `lib/zkex.jar`, `lib/gson.jar`, `lib/zkmax.jar`: ZK PE/EE binaries with `metainfo/zk/lang-addon.xml` and widget resources.
+  - `META-INF/MANIFEST.MF`: `Fragment-Host: org.adempiere.ui.zk`, `Bundle-ClassPath` includes `zkex`, `zkmax`, `client-bind`, `zuti`, `za11y`, and supporting jars.
+  - `build.properties`: includes `META-INF/` and required `lib/*.jar` entries so they are packaged inside the fragment.
+  - `pom.xml`: eclipse-plugin packaging; EE eval repository; dependency-copy execution to fetch required jars into `lib/` (version-stripped).
+  - `src/metainfo/zk/zk.xml`: registers `org.zkoss.clientbind.BinderPropertiesRenderer` for Client MVVM setup.
+  - `lib/zkex.jar`, `lib/zkmax.jar`, `lib/client-bind.jar`, `lib/zuti.jar`, `lib/za11y.jar`, `lib/gson.jar`, `lib/javassist.jar`, `lib/jackson-*.jar`: runtime binaries and dependencies.
   - `target/`: built outputs (`org.idempiere.zkee.comps.fragment-<version>.jar`, generated manifest, p2 metadata).
  
 License Note: 
@@ -112,7 +119,7 @@ ZK EE is commercially licensed. This project uses the Evaluation Repository, whi
  
 1) Ensure the ZK EE fragment (`org.idempiere.zkee.comps.fragment`) is installed and active in the runtime; restart the server so `org.adempiere.ui.zk` resolves with the fragment on its classpath.
 2) If your build cannot see the EE jar, add a dependency-copy step similar to the fragment (pulling the EE jar into `lib/`) or add the EE bundle to your target platform so Tycho can resolve it.
-3) In ZUL, once the fragment is active, you can directly use EE components (e.g., `<timepicker .../>`) because the lang-addon from the fragment registers them. See `org.idempiere.zkee.comps.example/src/web/form.zul` for an example using EE widgets.
+3) In ZUL, once the fragment is active, you can directly use EE components (e.g., `<timepicker .../>`) because the lang-addon from the fragment registers them. For Client MVVM examples (`ClientBindComposer`), see `org.idempiere.zkee.comps.example/src/web/mvvm-example.zul`.
 4) Build your plugin.
 ```bash
 cd zkoss-idempiere-ee-plugin/org.idempiere.zkee.comps.example

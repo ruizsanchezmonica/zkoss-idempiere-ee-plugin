@@ -7,6 +7,40 @@
 		<version>${revision}</version>
 		<relativePath>../parent-repository-pom.xml</relativePath>
 	</parent>
+	<repositories>
+		<repository>
+			<id>ZK Evaluation</id>
+			<url>https://mavensync.zkoss.org/eval/</url>
+		</repository>
+		<repository>
+			<id>ZK EE Evaluation</id>
+			<url>https://mavensync.zkoss.org/zk/ee-eval</url>
+		</repository>
+		<repository>
+			<id>zk repository</id>
+			<url>https://mavensync.zkoss.org/maven2</url>
+		</repository>
+	</repositories>
+	<dependencies>
+		<dependency>
+			<groupId>org.zkoss.zk</groupId>
+			<artifactId>zkbind</artifactId>
+			<version>10.0.1-Eval</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.zkoss.zk</groupId>
+			<artifactId>client-bind</artifactId>
+			<version>10.0.1-Eval</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.zkoss.zk</groupId>
+			<artifactId>zkmax</artifactId>
+			<version>10.0.1-Eval</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
 	<artifactId>org.idempiere.zkee.comps.example</artifactId>
 	<packaging>eclipse-plugin</packaging>	
 </project>

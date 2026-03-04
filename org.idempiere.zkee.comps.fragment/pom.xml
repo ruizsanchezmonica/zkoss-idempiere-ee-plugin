@@ -43,6 +43,41 @@
 					<artifactId>zkmax</artifactId>
 					<version>10.0.1-Eval</version>
 				</artifactItem>
+				<artifactItem>
+					<groupId>org.zkoss.zk</groupId>
+					<artifactId>zuti</artifactId>
+					<version>10.0.1-Eval</version>
+				</artifactItem>
+				<artifactItem>
+					<groupId>org.zkoss.zk</groupId>
+					<artifactId>client-bind</artifactId>
+					<version>10.0.1-Eval</version>
+				</artifactItem>
+				<artifactItem>
+					<groupId>org.javassist</groupId>
+					<artifactId>javassist</artifactId>
+					<version>3.29.2-GA</version>
+				</artifactItem>
+				<artifactItem>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-databind</artifactId>
+					<version>2.15.2</version>
+				</artifactItem>
+				<artifactItem>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-core</artifactId>
+					<version>2.15.2</version>
+				</artifactItem>
+				<artifactItem>
+					<groupId>com.fasterxml.jackson.core</groupId>
+					<artifactId>jackson-annotations</artifactId>
+					<version>2.15.2</version>
+				</artifactItem>
+				<artifactItem>
+					<groupId>org.zkoss.zk</groupId>
+					<artifactId>za11y</artifactId>
+					<version>10.0.1-Eval</version>
+				</artifactItem>
 				</artifactItems>
 				<outputDirectory>lib</outputDirectory>
 				<stripVersion>true</stripVersion>
